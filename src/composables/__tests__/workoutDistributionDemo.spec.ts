@@ -120,7 +120,9 @@ describe("Workout Distribution Demo", () => {
 			const config = {
 				...baseConfig,
 				trainingDaysPerWeek: trainingDays,
-				restDays: (trainingDays === 7 ? [] : ["Monday"]) as PlanConfiguration["restDays"],
+				restDays: (trainingDays === 7
+					? []
+					: ["Monday"]) as PlanConfiguration["restDays"],
 			};
 
 			const distribution = createWeeklyDistribution(config, weeklyVolume);

@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { useProgressionRules } from "../useProgressionRules";
+import { describe, expect, it } from "vitest";
 import type { ProgressionConfig } from "../useProgressionRules";
+import { useProgressionRules } from "../useProgressionRules";
 
 describe("useProgressionRules", () => {
 	const progressionRules = useProgressionRules();

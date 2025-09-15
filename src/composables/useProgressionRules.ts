@@ -1,5 +1,5 @@
-import type { RaceDistance } from "@/types/configuration";
 import { RACE_DISTANCES } from "@/constants/raceDistances";
+import type { RaceDistance } from "@/types/configuration";
 
 /**
  * Base building and progressive overload logic for training plans

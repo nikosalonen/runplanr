@@ -233,7 +233,8 @@ export function usePhasePeriodization() {
 				if ((phaseDurations[largestPhaseKey] ?? 0) < 1) {
 					phaseDurations[largestPhaseKey] = 1;
 					// Redistribute the deficit
-					const deficit = 1 - ((phaseDurations[largestPhaseKey] ?? 0) + difference);
+					const deficit =
+						1 - ((phaseDurations[largestPhaseKey] ?? 0) + difference);
 					const [secondPhaseKey] = phases[1] as [TrainingPhase, number];
 					phaseDurations[secondPhaseKey] = Math.max(
 						1,

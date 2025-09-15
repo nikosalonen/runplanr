@@ -3,8 +3,8 @@
  * This demonstrates how the base building logic works in practice
  */
 
-import { useProgressionRules } from "../useProgressionRules";
 import type { ProgressionConfig } from "../useProgressionRules";
+import { useProgressionRules } from "../useProgressionRules";
 
 // Example: Half Marathon training plan for intermediate runner
 const exampleConfig: ProgressionConfig = {

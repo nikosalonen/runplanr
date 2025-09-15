@@ -1,12 +1,12 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-	MVP_WORKOUT_TYPES,
-	EXTENDED_WORKOUT_TYPES,
+	createWorkoutFromTemplate,
 	EXTENDED_WORKOUT_TEMPLATES,
+	EXTENDED_WORKOUT_TYPES,
 	getExtendedWorkoutDefinition,
 	getExtendedWorkoutTemplate,
 	getQualityWorkoutTypes,
-	createWorkoutFromTemplate,
+	MVP_WORKOUT_TYPES,
 } from "../workoutTypes";
 
 describe("Workout Types", () => {

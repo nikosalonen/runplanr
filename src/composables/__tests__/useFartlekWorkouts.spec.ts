@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-	EXTENDED_WORKOUT_TYPES,
 	EXTENDED_WORKOUT_TEMPLATES,
+	EXTENDED_WORKOUT_TYPES,
 	getExtendedWorkoutDefinition,
 	getExtendedWorkoutTemplate,
 	getQualityWorkoutTypes,

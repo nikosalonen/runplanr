@@ -1,4 +1,4 @@
-import type { WorkoutType, IntensityZone, ExtendedWorkoutType } from "@/types";
+import type { ExtendedWorkoutType, IntensityZone, WorkoutType } from "@/types";
 
 export interface WorkoutTypeDefinition {
 	type: WorkoutType;
