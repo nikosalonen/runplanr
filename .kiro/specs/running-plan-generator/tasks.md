@@ -66,7 +66,7 @@
     - Ensure all calculations use metric units (kilometers) as the base measurement system
     - _Requirements: 3.6, 4.3_
 
-  - [ ] 3.2 Implement basic workout distribution algorithm (MVP)
+  - [x] 3.2 Implement basic workout distribution algorithm (MVP)
     - Create simple workout distribution templates for 3-7 training days per week
     - Implement basic logic with mostly easy runs, one long run, and one quality workout per week
     - Add race-distance specific distance scaling in kilometers
