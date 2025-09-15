@@ -38,8 +38,15 @@ npm run build
 npm run test:unit
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Lint and Format with [Biome](https://biomejs.dev/)
 
 ```sh
+# Lint and auto-fix
 npm run lint
+
+# Format files
+npm run format
+
+# Check (lint + format in check mode)
+npm run check
 ```
