@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { useWorkoutDistribution } from "../useWorkoutDistribution";
+import { describe, expect, it } from "vitest";
 import type { PlanConfiguration } from "@/types/configuration";
+import { useWorkoutDistribution } from "../useWorkoutDistribution";
 
 describe("useWorkoutDistribution", () => {
 	const {
@@ -205,7 +205,9 @@ describe("useWorkoutDistribution", () => {
 			const configs = [3, 4, 5, 6, 7].map((days) => ({
 				...mockConfig,
 				trainingDaysPerWeek: days,
-				restDays: days === 7 ? [] : ["Monday"], // Adjust rest days
+				restDays: (days === 7
+					? []
+					: ["Monday"]) as PlanConfiguration["restDays"], // Adjust rest days
 			}));
 
 			configs.forEach((config) => {

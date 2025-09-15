@@ -1,8 +1,8 @@
-import { describe, it, expect } from "vitest";
-import { usePhasePeriodization } from "../usePhasePeriodization";
-import { useWorkoutDistribution } from "../useWorkoutDistribution";
-import { useProgressionRules } from "../useProgressionRules";
+import { describe, expect, it } from "vitest";
 import type { PlanConfiguration } from "@/types/configuration";
+import { usePhasePeriodization } from "../usePhasePeriodization";
+import { useProgressionRules } from "../useProgressionRules";
+import { useWorkoutDistribution } from "../useWorkoutDistribution";
 
 describe("Phase Periodization Integration", () => {
 	const { calculatePhasePeriodization, getPhaseForWeek } =
@@ -68,7 +68,7 @@ describe("Phase Periodization Integration", () => {
 				// Create base distribution
 				const baseDistribution = createWeeklyDistribution(
 					mockConfig,
-					weeklyVolume?.adjustedVolume,
+					weeklyVolume?.adjustedVolume ?? 0,
 					phase,
 				);
 

@@ -147,7 +147,11 @@ export function useWorkoutDistribution() {
 			);
 		}
 
-		return WORKOUT_DISTRIBUTION_TEMPLATES[trainingDaysPerWeek];
+		const template = WORKOUT_DISTRIBUTION_TEMPLATES[trainingDaysPerWeek];
+		if (!template) {
+			throw new Error(`No template for ${trainingDaysPerWeek} training days`);
+		}
+		return template;
 	}
 
 	/**
@@ -211,7 +215,7 @@ export function useWorkoutDistribution() {
 		// Initialize all days as rest days
 		for (let i = 0; i < 7; i++) {
 			dailyWorkouts.push({
-				dayOfWeek: DAYS_OF_WEEK[i],
+				dayOfWeek: DAYS_OF_WEEK[i]!,
 				isRestDay: true,
 			});
 		}
@@ -228,7 +232,7 @@ export function useWorkoutDistribution() {
 		workoutSchedule.forEach((scheduledWorkout, dayIndex) => {
 			if (scheduledWorkout) {
 				dailyWorkouts[dayIndex] = {
-					dayOfWeek: DAYS_OF_WEEK[dayIndex],
+					dayOfWeek: DAYS_OF_WEEK[dayIndex]!,
 					isRestDay: false,
 					workout: scheduledWorkout,
 				};
@@ -298,10 +302,10 @@ export function useWorkoutDistribution() {
 			i++
 		) {
 			const workoutType = remainingWorkouts[i];
-			const dayIndex = availableDays[i];
+			const dayIndex = availableDays[i]!;
 
 			schedule[dayIndex] = createWorkout(
-				workoutType,
+				workoutType as WorkoutType,
 				workoutDistances[workoutType],
 				phase,
 			);

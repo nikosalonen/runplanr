@@ -20,7 +20,7 @@ export function createTrainingPlan(
 	weeks: WeeklyPlan[],
 ): TrainingPlan {
 	const id = generatePlanId();
-	const metadata = calculatePlanMetadata(weeks, configuration);
+	const metadata = calculatePlanMetadata(weeks);
 
 	return {
 		id,
@@ -328,7 +328,7 @@ export function getWeeksByPhase(
 export function updatePlanMetadata(plan: TrainingPlan): TrainingPlan {
 	const updatedMetadata = {
 		...plan.metadata,
-		...calculatePlanMetadata(plan.weeks, plan.configuration),
+		...calculatePlanMetadata(plan.weeks),
 		lastModified: new Date(),
 	};
 

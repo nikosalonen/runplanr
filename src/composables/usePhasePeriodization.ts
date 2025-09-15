@@ -225,17 +225,19 @@ export function usePhasePeriodization() {
 				const phases = Object.entries(phaseDurations).sort(
 					([, a], [, b]) => b - a,
 				);
-				phaseDurations[phases[0][0] as TrainingPhase] += difference;
+				const [largestPhaseKey] = phases[0] as [TrainingPhase, number];
+				phaseDurations[largestPhaseKey] =
+					(phaseDurations[largestPhaseKey] ?? 0) + difference;
 
 				// Ensure no phase goes below 1 week
-				if (phaseDurations[phases[0][0] as TrainingPhase] < 1) {
-					phaseDurations[phases[0][0] as TrainingPhase] = 1;
+				if ((phaseDurations[largestPhaseKey] ?? 0) < 1) {
+					phaseDurations[largestPhaseKey] = 1;
 					// Redistribute the deficit
-					const deficit =
-						1 - (phaseDurations[phases[0][0] as TrainingPhase] + difference);
-					phaseDurations[phases[1][0] as TrainingPhase] = Math.max(
+					const deficit = 1 - ((phaseDurations[largestPhaseKey] ?? 0) + difference);
+					const [secondPhaseKey] = phases[1] as [TrainingPhase, number];
+					phaseDurations[secondPhaseKey] = Math.max(
 						1,
-						phaseDurations[phases[1][0] as TrainingPhase] - deficit,
+						(phaseDurations[secondPhaseKey] ?? 1) - deficit,
 					);
 				}
 			}
@@ -422,8 +424,8 @@ export function usePhasePeriodization() {
 		const transitions: PhaseTransition[] = [];
 
 		for (let i = 0; i < phases.length - 1; i++) {
-			const currentPhase = phases[i];
-			const nextPhase = phases[i + 1];
+			const currentPhase = phases[i]!;
+			const nextPhase = phases[i + 1]!;
 
 			transitions.push({
 				fromPhase: currentPhase.phase,

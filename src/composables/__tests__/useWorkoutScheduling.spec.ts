@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { useWorkoutScheduling } from "../useWorkoutScheduling";
+import { describe, expect, it } from "vitest";
 import type { PlanConfiguration } from "@/types/configuration";
+import { useWorkoutScheduling } from "../useWorkoutScheduling";
 
 describe("useWorkoutScheduling", () => {
 	const {

@@ -1,9 +1,9 @@
-import type { PlanConfiguration, DayOfWeek } from "@/types/configuration";
+import type { DayOfWeek, PlanConfiguration } from "@/types/configuration";
 import type {
-	WorkoutType,
 	DailyWorkout,
 	TrainingPhase,
 	Workout,
+	WorkoutType,
 } from "@/types/workout";
 
 /**
@@ -117,9 +117,9 @@ export function useWorkoutScheduling() {
 		weekNumber: number,
 	): QualityWorkoutRotation {
 		const cycleIndex = (weekNumber - 1) % QUALITY_WORKOUT_CYCLE.length;
-		const currentType = QUALITY_WORKOUT_CYCLE[cycleIndex];
+		const currentType = QUALITY_WORKOUT_CYCLE[cycleIndex]!;
 		const nextIndex = (cycleIndex + 1) % QUALITY_WORKOUT_CYCLE.length;
-		const nextType = QUALITY_WORKOUT_CYCLE[nextIndex];
+		const nextType = QUALITY_WORKOUT_CYCLE[nextIndex]!;
 
 		const workoutDef = QUALITY_WORKOUT_DEFINITIONS[currentType];
 
@@ -176,8 +176,8 @@ export function useWorkoutScheduling() {
 			.map((day) => DAYS_OF_WEEK.indexOf(day))
 			.sort();
 		for (let i = 0; i < restDayIndices.length - 1; i++) {
-			const current = restDayIndices[i];
-			const next = restDayIndices[i + 1];
+			const current = restDayIndices[i]!;
+			const next = restDayIndices[i + 1]!;
 
 			// Check for consecutive days (including wrap-around from Sunday to Monday)
 			if (next - current === 1 || (current === 0 && next === 6)) {
@@ -266,7 +266,7 @@ export function useWorkoutScheduling() {
 					);
 
 					dailyWorkouts[qualityDayIndex] = {
-						dayOfWeek: DAYS_OF_WEEK[qualityDayIndex],
+						dayOfWeek: DAYS_OF_WEEK[qualityDayIndex]!,
 						isRestDay: false,
 						workout: enhancedQualityWorkout,
 					};
@@ -351,7 +351,7 @@ export function useWorkoutScheduling() {
 			const day = DAYS_OF_WEEK[i];
 			if (
 				!constraints.restDays.includes(day) &&
-				!currentSchedule[i].workout &&
+				!currentSchedule[i]?.workout &&
 				i !== longRunDayIndex
 			) {
 				availableDays.push(i);
@@ -371,11 +371,11 @@ export function useWorkoutScheduling() {
 
 		if (optimalDays.length > 0) {
 			// Choose the first optimal day (could be enhanced with more sophisticated logic)
-			return optimalDays[0];
+			return optimalDays[0]!;
 		}
 
 		// If no optimal days, choose the first available day
-		return availableDays[0];
+		return availableDays[0]!;
 	}
 
 	/**
@@ -504,7 +504,7 @@ export function useWorkoutScheduling() {
 
 		for (let i = 0; i < 7; i++) {
 			const day = DAYS_OF_WEEK[i];
-			if (!constraints.restDays.includes(day) && !currentSchedule[i].workout) {
+			if (!constraints.restDays.includes(day) && !currentSchedule[i]?.workout) {
 				availableDays.push(i);
 			}
 		}
@@ -533,16 +533,16 @@ export function useWorkoutScheduling() {
 		);
 
 		for (let i = 0; i < workoutsToSchedule; i++) {
-			const dayIndex = sortedDays[i];
+			const dayIndex = sortedDays[i]!;
 			const easyWorkout = easyWorkouts[i];
 
 			dailyWorkouts[dayIndex] = {
-				dayOfWeek: DAYS_OF_WEEK[dayIndex],
+				dayOfWeek: DAYS_OF_WEEK[dayIndex]!,
 				isRestDay: false,
 				workout: easyWorkout.workout,
 			};
 
-			schedulingNotes.push(`Easy run scheduled on ${DAYS_OF_WEEK[dayIndex]}`);
+			schedulingNotes.push(`Easy run scheduled on ${DAYS_OF_WEEK[dayIndex]!}`);
 		}
 
 		if (easyWorkouts.length > workoutsToSchedule) {
@@ -574,7 +574,7 @@ export function useWorkoutScheduling() {
 		// Check rest day compliance
 		constraints.restDays.forEach((restDay) => {
 			const dayIndex = DAYS_OF_WEEK.indexOf(restDay);
-			if (dayIndex !== -1 && !dailyWorkouts[dayIndex].isRestDay) {
+			if (dayIndex !== -1 && !dailyWorkouts[dayIndex]?.isRestDay) {
 				violations.push(
 					`Rest day violation: ${restDay} has a scheduled workout`,
 				);
@@ -590,8 +590,8 @@ export function useWorkoutScheduling() {
 		if (qualityDays.length > 1) {
 			for (let i = 0; i < qualityDays.length - 1; i++) {
 				const daysBetween = calculateDaysBetween(
-					qualityDays[i],
-					qualityDays[i + 1],
+					qualityDays[i]!,
+					qualityDays[i + 1]!,
 				);
 				if (daysBetween < 2) {
 					violations.push(
@@ -612,7 +612,7 @@ export function useWorkoutScheduling() {
 	): "tempo" | "threshold" | "intervals" | "hills" | "fartlek" {
 		const nextWeek = currentWeek + 1;
 		const cycleIndex = (nextWeek - 1) % QUALITY_WORKOUT_CYCLE.length;
-		return QUALITY_WORKOUT_CYCLE[cycleIndex];
+		return QUALITY_WORKOUT_CYCLE[cycleIndex]!;
 	}
 
 	/**

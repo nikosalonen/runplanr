@@ -19,7 +19,7 @@ describe("Workout Distribution Demo", () => {
 			raceDistance: "10K",
 			programLength: 12,
 			trainingDaysPerWeek: 4,
-			restDays: ["Monday", "Friday"],
+			restDays: ["Monday", "Friday"] as PlanConfiguration["restDays"],
 			longRunDay: "Sunday",
 			deloadFrequency: 4,
 		};
@@ -67,7 +67,7 @@ describe("Workout Distribution Demo", () => {
 			raceDistance: "5K",
 			programLength: 12,
 			trainingDaysPerWeek: 4,
-			restDays: ["Monday", "Friday"],
+			restDays: ["Monday", "Friday"] as PlanConfiguration["restDays"],
 			longRunDay: "Sunday",
 			deloadFrequency: 4,
 		};
@@ -107,7 +107,7 @@ describe("Workout Distribution Demo", () => {
 			raceDistance: "10K",
 			programLength: 12,
 			trainingDaysPerWeek: 4,
-			restDays: ["Monday"],
+			restDays: ["Monday"] as PlanConfiguration["restDays"],
 			longRunDay: "Sunday",
 			deloadFrequency: 4,
 		};
@@ -120,7 +120,7 @@ describe("Workout Distribution Demo", () => {
 			const config = {
 				...baseConfig,
 				trainingDaysPerWeek: trainingDays,
-				restDays: trainingDays === 7 ? [] : ["Monday"],
+				restDays: (trainingDays === 7 ? [] : ["Monday"]) as PlanConfiguration["restDays"],
 			};
 
 			const distribution = createWeeklyDistribution(config, weeklyVolume);

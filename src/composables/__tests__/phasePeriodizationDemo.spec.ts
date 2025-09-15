@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { usePhasePeriodization } from "../usePhasePeriodization";
-import { useWorkoutDistribution } from "../useWorkoutDistribution";
 import { useProgressionRules } from "../useProgressionRules";
+import { useWorkoutDistribution } from "../useWorkoutDistribution";
 
 describe("Phase Periodization Demo", () => {
 	const {
@@ -167,8 +167,12 @@ describe("Phase Periodization Demo", () => {
 						? "Extended base"
 						: "Optimal";
 
+			const baseStr = String(baseWeeks ?? 0).padStart(4);
+			const buildStr = String(buildWeeks ?? 0).padStart(5);
+			const peakStr = String(peakWeeks ?? 0).padStart(4);
+			const taperStr = String(taperWeeks ?? 0).padStart(5);
 			console.log(
-				`${weeks.toString().padStart(5)} | ${baseWeeks.toString().padStart(4)} | ${buildWeeks.toString().padStart(5)} | ${peakWeeks.toString().padStart(4)} | ${taperWeeks.toString().padStart(5)} | ${notes}`,
+				`${weeks.toString().padStart(5)} | ${baseStr} | ${buildStr} | ${peakStr} | ${taperStr} | ${notes}`,
 			);
 		});
 

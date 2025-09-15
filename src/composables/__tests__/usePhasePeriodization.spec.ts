@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { usePhasePeriodization } from "../usePhasePeriodization";
+import { describe, expect, it } from "vitest";
 import type { RaceDistance } from "@/types/configuration";
+import { usePhasePeriodization } from "../usePhasePeriodization";
 
 describe("usePhasePeriodization", () => {
 	const {
@@ -164,7 +164,7 @@ describe("usePhasePeriodization", () => {
 			const periodization = calculatePhasePeriodization(12, "10K");
 
 			// This shouldn't happen in practice, but test the edge case
-			const config = getPhaseConfiguration("base" as TrainingPhase, {
+			const config = getPhaseConfiguration("base", {
 				...periodization,
 				phases: periodization.phases.filter((p) => p.phase !== "base"),
 			});

@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-	EXTENDED_WORKOUT_TYPES,
 	EXTENDED_WORKOUT_TEMPLATES,
+	EXTENDED_WORKOUT_TYPES,
 	getExtendedWorkoutDefinition,
 	getExtendedWorkoutTemplate,
 	getQualityWorkoutTypes,
@@ -149,7 +149,7 @@ describe("Threshold Workout Implementation", () => {
 			expect(thresholdExamples).toContain("recovery");
 
 			// Tempo examples should show continuous format
-			const tempoExamples = tempoTemplate.examples?.join(" ");
+			const tempoExamples = tempoTemplate.examples?.join(" ") ?? "";
 			expect(tempoExamples).toContain("tempo");
 			expect(!tempoExamples.includes(" x ")).toBe(true);
 		});
