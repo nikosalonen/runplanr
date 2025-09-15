@@ -94,7 +94,7 @@
     - Create validation for workout sequence safety and overtraining prevention
     - _Requirements: 4.1, 4.4, 4.5_
 
-  - [ ] 4.3 Build deload week scheduling
+  - [x] 4.3 Build deload week scheduling
     - Implement deload week placement every 3rd or 4th week based on user preference
     - Create deload week workout modification logic
     - Add validation to ensure deload weeks don't conflict with key training phases
