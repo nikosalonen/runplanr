@@ -57,7 +57,7 @@
     - Create helper methods for plan manipulation and querying
     - _Requirements: 5.1, 5.2_
 
-- [ ] 3. Build training science rules engine
+- [x] 3. Build training science rules engine
   - [x] 3.1 Implement base building logic with progressive overload
     - Create algorithm to calculate starting weekly distance based on race distance (in kilometers)
     - Implement maximum 10% weekly volume increase with safety caps (key science principle)
