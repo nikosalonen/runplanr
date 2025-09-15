@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const _openReadmeInEditor = () => fetch("/__open-in-editor?file=README.md");
+const openReadmeInEditor = () => fetch("/__open-in-editor?file=README.md");
 </script>
 
 <template>
