@@ -37,21 +37,21 @@
   - Create constants files in src/constants/: trainingZones.ts, raceDistances.ts, workoutTypes.ts, difficultyLevels.ts, paceInputMethods.ts
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
-- [ ] 2. Implement core data models and validation
-  - [ ] 2.1 Create core workout type definitions (MVP)
+- [x] 2. Implement core data models and validation
+  - [x] 2.1 Create core workout type definitions (MVP)
     - Define basic WorkoutType enum with easy, long, and quality workout types
     - Implement simple workout structure with type, distance, and description
     - Create basic workout template library for MVP (easy runs, long runs, one quality type)
     - Add basic workout descriptions for each type
     - _Requirements: 3.1, 3.2, 3.5_
 
-  - [ ] 2.2 Implement plan configuration model with validation
+  - [x] 2.2 Implement plan configuration model with validation
     - Create PlanConfiguration interface with race distance, program length, training days, rest days, long run day, and deload frequency
     - Implement validation functions for parameter combinations (minimum weeks per race distance, training days limits)
     - Add validation warnings for potentially unsafe configurations
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6_
 
-  - [ ] 2.3 Create training plan data structure
+  - [x] 2.3 Create training plan data structure
     - Implement TrainingPlan, WeeklyPlan, and DailyWorkout interfaces
     - Add metadata tracking for total volume, workout counts, and creation date
     - Create helper methods for plan manipulation and querying

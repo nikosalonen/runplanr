@@ -1,4 +1,8 @@
-export type WorkoutType = 'easy' | 'long' | 'tempo' | 'intervals' | 'hills' | 'marathon' | 'recovery' | 'rest';
+// MVP workout types - focusing on core types for initial implementation
+export type WorkoutType = 'easy' | 'long' | 'quality' | 'rest';
+
+// Extended workout types for future phases
+export type ExtendedWorkoutType = 'easy' | 'long' | 'tempo' | 'intervals' | 'hills' | 'marathon' | 'recovery' | 'rest';
 
 export type IntensityZone = 'zone1' | 'zone2' | 'zone3' | 'zone4' | 'zone5';
 
