@@ -47,6 +47,12 @@
 	},
 	"overrides": [
 		{
+			"includes": ["**/*.vue"],
+			"linter": { "enabled": false },
+			"formatter": { "enabled": false },
+			"assist": { "enabled": false }
+		},
+		{
 			"includes": ["src/**/__tests__/**", "**/*.spec.ts", "**/*.spec.tsx"],
 			"linter": {
 				"rules": {
