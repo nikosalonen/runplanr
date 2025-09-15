@@ -1,6 +1,7 @@
 import type { RaceDistance, DayOfWeek, PlanConfiguration } from '@/types/configuration';
 import type { WorkoutType, DailyWorkout, TrainingPhase } from '@/types/workout';
 import { MVP_WORKOUT_TYPES } from '@/constants/workoutTypes';
+import { usePhasePeriodization } from './usePhasePeriodization';
 
 /**
  * Basic workout distribution algorithm for MVP
@@ -115,6 +116,7 @@ const DAYS_OF_WEEK: DayOfWeek[] = [
 ];
 
 export function useWorkoutDistribution() {
+  const { getPhaseCharacteristics } = usePhasePeriodization();
   /**
    * Gets the workout distribution template for a given number of training days
    */
@@ -325,16 +327,17 @@ export function useWorkoutDistribution() {
    */
   function getQualityWorkoutDescription(distance: number, phase: TrainingPhase): string {
     const distanceStr = `${distance} km`;
+    const phaseChar = getPhaseCharacteristics(phase);
     
     switch (phase) {
       case 'base':
-        return `Tempo run - ${distanceStr} at comfortably hard pace`;
+        return `Tempo run - ${distanceStr} at comfortably hard pace (${phaseChar.primaryAdaptations[0]})`;
       case 'build':
-        return `Interval workout - ${distanceStr} total with speed intervals`;
+        return `Interval workout - ${distanceStr} total with speed intervals (${phaseChar.primaryAdaptations[0]})`;
       case 'peak':
-        return `Race pace workout - ${distanceStr} at goal race pace`;
+        return `Race pace workout - ${distanceStr} at goal race pace (${phaseChar.primaryAdaptations[0]})`;
       case 'taper':
-        return `Sharpening workout - ${distanceStr} with short, fast intervals`;
+        return `Sharpening workout - ${distanceStr} with short, fast intervals (${phaseChar.primaryAdaptations[0]})`;
       default:
         return `Quality workout - ${distanceStr} at moderate to hard effort`;
     }
@@ -362,15 +365,17 @@ export function useWorkoutDistribution() {
    * Gets quality workout pace guidance based on phase
    */
   function getQualityPaceGuidance(phase: TrainingPhase): string {
+    const phaseChar = getPhaseCharacteristics(phase);
+    
     switch (phase) {
       case 'base':
-        return 'Comfortably hard - sustainable for 20-40 minutes';
+        return `Comfortably hard - sustainable for 20-40 minutes (Focus: ${phaseChar.keyMetrics[0]})`;
       case 'build':
-        return 'Hard effort - 5K to 10K race pace with recovery intervals';
+        return `Hard effort - 5K to 10K race pace with recovery intervals (Focus: ${phaseChar.keyMetrics[0]})`;
       case 'peak':
-        return 'Goal race pace - practice your target race effort';
+        return `Goal race pace - practice your target race effort (Focus: ${phaseChar.keyMetrics[0]})`;
       case 'taper':
-        return 'Short, sharp efforts - faster than race pace but brief';
+        return `Short, sharp efforts - faster than race pace but brief (Focus: ${phaseChar.keyMetrics[0]})`;
       default:
         return 'Moderate to hard effort as prescribed';
     }
@@ -439,6 +444,63 @@ export function useWorkoutDistribution() {
     return RACE_DISTANCE_SCALING;
   }
 
+  /**
+   * Gets phase-specific workout recommendations
+   */
+  function getPhaseWorkoutRecommendations(phase: TrainingPhase): {
+    emphasis: string[];
+    workoutTypes: string[];
+    intensityGuidance: string;
+    volumeGuidance: string;
+  } {
+    const phaseChar = getPhaseCharacteristics(phase);
+    
+    return {
+      emphasis: phaseChar.primaryAdaptations,
+      workoutTypes: phaseChar.workoutTypes,
+      intensityGuidance: `${phaseChar.intensityEmphasis} intensity emphasis`,
+      volumeGuidance: `${phaseChar.volumeEmphasis} volume emphasis`
+    };
+  }
+
+  /**
+   * Adjusts workout distribution based on training phase characteristics
+   */
+  function adjustDistributionForPhase(
+    baseDistribution: WeeklyWorkoutDistribution,
+    phase: TrainingPhase
+  ): WeeklyWorkoutDistribution {
+    const phaseChar = getPhaseCharacteristics(phase);
+    
+    // Create adjusted distribution based on phase characteristics
+    const adjustedDistribution = { ...baseDistribution };
+    
+    // Update workout descriptions to include phase-specific information
+    adjustedDistribution.dailyWorkouts = baseDistribution.dailyWorkouts.map(day => {
+      if (!day.isRestDay && day.workout) {
+        const updatedWorkout = { ...day.workout };
+        
+        // Add phase-specific notes to workout description
+        if (updatedWorkout.type === 'quality') {
+          updatedWorkout.description = getQualityWorkoutDescription(
+            updatedWorkout.distance || 0, 
+            phase
+          );
+          updatedWorkout.paceGuidance = getQualityPaceGuidance(phase);
+        }
+        
+        return {
+          ...day,
+          workout: updatedWorkout,
+          notes: `${phase.charAt(0).toUpperCase() + phase.slice(1)} phase: ${phaseChar.primaryAdaptations[0]}`
+        };
+      }
+      return day;
+    });
+    
+    return adjustedDistribution;
+  }
+
   return {
     getDistributionTemplate,
     getRaceDistanceScaling,
@@ -447,6 +509,8 @@ export function useWorkoutDistribution() {
     validateWorkoutDistribution,
     getAvailableTemplates,
     getAllRaceDistanceScaling,
+    getPhaseWorkoutRecommendations,
+    adjustDistributionForPhase,
     WORKOUT_DISTRIBUTION_TEMPLATES,
     RACE_DISTANCE_SCALING
   };
