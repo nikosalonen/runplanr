@@ -3,11 +3,11 @@
 ## Implementation Priorities
 
 ### MVP Features (Must Have)
-- Basic plan generation for 4 race distances
-- Weekly mileage progression
+- Basic plan generation for 4 race distances (metric units only)
+- Weekly distance progression in kilometers
 - Three core workout types (easy, long, quality)
 - Rest day selection
-- Simple calendar display
+- Simple calendar display with metric measurements
 
 ### Phase 2 Features
 - Deload week customization
@@ -58,17 +58,19 @@
     - _Requirements: 5.1, 5.2_
 
 - [ ] 3. Build training science rules engine
-  - [ ] 3.1 Implement base building logic with progressive overload
-    - Create algorithm to calculate starting weekly mileage based on race distance
+  - [x] 3.1 Implement base building logic with progressive overload
+    - Create algorithm to calculate starting weekly distance based on race distance (in kilometers)
     - Implement maximum 10% weekly volume increase with safety caps (key science principle)
     - Add automatic adjustment for aggressive progression attempts
     - Add deload week volume reduction logic (20-30% decrease)
+    - Ensure all calculations use metric units (kilometers) as the base measurement system
     - _Requirements: 3.6, 4.3_
 
   - [ ] 3.2 Implement basic workout distribution algorithm (MVP)
     - Create simple workout distribution templates for 3-7 training days per week
     - Implement basic logic with mostly easy runs, one long run, and one quality workout per week
-    - Add race-distance specific mileage scaling
+    - Add race-distance specific distance scaling in kilometers
+    - Ensure all distance calculations and displays use metric units
     - _Requirements: 3.1, 3.6_
 
   - [ ] 3.3 Create phase periodization system
@@ -138,9 +140,9 @@
 
 - [ ] 7. Add basic plan visualization and progress tracking
   - [ ] 7.1 Implement progress visualization
-    - Create basic progress tracking showing weekly mileage progression
+    - Create basic progress tracking showing weekly distance progression in kilometers
     - Add visual indicators for training phases (base, build, peak, taper)
-    - Display plan overview with key metrics and milestones
+    - Display plan overview with key metrics and milestones using metric units
     - _Requirements: 5.7_
 
   - [ ] 7.2 Add educational workout information
@@ -227,9 +229,9 @@
 
 - [ ] 14. Add progress visualization
   - [ ] 14.1 Create ProgressChart component
-    - Implement chart showing mileage progression over time
+    - Implement chart showing distance progression over time in kilometers
     - Add visual indicators for training phases (base, build, peak, taper)
-    - Create interactive chart with week-by-week details
+    - Create interactive chart with week-by-week details using metric measurements
     - _Requirements: 5.4_
 
   - [ ] 14.2 Enhance WorkoutDetail components
@@ -277,15 +279,15 @@
   - [ ] 17.2 Build PaceInputWizard component system
     - Create PaceInputWizard.vue with multiple input method selection (recent race, time trial, current pace, goal time, fitness level)
     - Build RecentRaceInput.vue component with race distance and time input using DaisyUI form components
-    - Implement PaceZonesDisplay.vue showing personalized training zones with heart rate ranges
-    - Add pace validation and realistic pace checking with warnings
+    - Implement PaceZonesDisplay.vue showing personalized training zones in min/km format with heart rate ranges
+    - Add pace validation and realistic pace checking with warnings using metric pace formats
     - _Requirements: 7.1, 7.4_
 
   - [ ] 17.3 Implement adaptive pace adjustments
     - Create useAdaptivePaceSystem.ts composable for environmental and phase-based pace adjustments
-    - Add temperature adjustment (2% per 5°F above 60°F) and altitude adjustment (2% per 1000ft above 3000ft)
+    - Add temperature adjustment (2% per 3°C above 15°C) and altitude adjustment (2% per 300m above 900m)
     - Implement training phase adjustments (base: +5%, build: +2%, peak: 0%, taper: -2%)
-    - Create usePaceCalculator.ts composable to assign specific paces to workout types
+    - Create usePaceCalculator.ts composable to assign specific paces to workout types in min/km format
     - _Requirements: 7.5, 7.6_
 
 - [ ] 18. Add educational tooltips and guidance

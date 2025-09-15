@@ -4,6 +4,8 @@
 
 The Running Plan Generator is a web-based application that creates personalized training plans for runners based on established running science principles. The system will generate customized training schedules that incorporate different types of workouts (Zone 2, intervals, tempo runs, long runs, hill repeats) while allowing users to specify their preferences for program length, race distance, training frequency, and scheduling constraints.
 
+**Units and Measurements**: The application uses the metric system (kilometers, meters) as the primary unit system. All distances, paces, and measurements are displayed in metric units. Imperial unit support (miles, feet) is planned for future implementation but is not included in the current scope.
+
 ## Requirements
 
 ### Requirement 1
@@ -66,9 +68,10 @@ The Running Plan Generator is a web-based application that creates personalized 
 2. WHEN a user views the plan THEN the system SHALL show workout types, durations, and intensity levels for each training day
 3. WHEN a user requests plan export THEN the system SHALL provide options for PDF, calendar format, or printable view
 4. WHEN displaying workouts THEN the system SHALL include clear descriptions of pace/effort levels for each workout type
-5. WHEN showing long runs THEN the system SHALL display progressive distance increases following the 10% rule
+5. WHEN showing long runs THEN the system SHALL display progressive distance increases following the 10% rule in kilometers
 6. WHEN a user views workout details THEN the system SHALL provide educational information about workout purposes and training benefits
-7. WHEN displaying the plan THEN the system SHALL show progress visualization with mileage progression over time
+7. WHEN displaying the plan THEN the system SHALL show progress visualization with weekly distance progression over time in kilometers
+8. WHEN displaying distances and paces THEN the system SHALL use metric units (kilometers, meters, minutes per kilometer) as the primary measurement system
 
 ### Requirement 6
 
@@ -83,6 +86,7 @@ The Running Plan Generator is a web-based application that creates personalized 
 5. IF a user selects more than 6 training days per week THEN the system SHALL warn about overtraining risks
 6. WHEN validating parameters THEN the system SHALL ensure adequate time for base building relative to race distance
 7. WHEN the system applies the 80/20 training rule THEN it SHALL ensure 80% of training is at easy/aerobic intensity and 20% at moderate/hard intensity
+8. WHEN calculating weekly training volumes THEN the system SHALL use kilometers as the base unit for all distance calculations and display
 
 ### Requirement 7
 
@@ -92,10 +96,10 @@ The Running Plan Generator is a web-based application that creates personalized 
 
 1. WHEN a user accesses pace determination THEN the system SHALL offer multiple input methods (recent race, time trial, current training pace, goal time, fitness assessment)
 2. WHEN a user enters a recent race result THEN the system SHALL calculate personalized training paces using VDOT methodology
-3. WHEN training paces are calculated THEN the system SHALL provide pace ranges for recovery, easy, marathon, threshold, interval, and repetition zones
-4. WHEN displaying pace zones THEN the system SHALL include heart rate correlations and effort descriptions
-5. WHEN environmental conditions change THEN the system SHALL provide pace adjustments for temperature and altitude
-6. WHEN training phases change THEN the system SHALL adjust recommended paces accordingly
+3. WHEN training paces are calculated THEN the system SHALL provide pace ranges for recovery, easy, marathon, threshold, interval, and repetition zones in minutes per kilometer
+4. WHEN displaying pace zones THEN the system SHALL include heart rate correlations and effort descriptions with paces shown in metric format (min/km)
+5. WHEN environmental conditions change THEN the system SHALL provide pace adjustments for temperature and altitude using metric measurements
+6. WHEN training phases change THEN the system SHALL adjust recommended paces accordingly in minutes per kilometer format
 
 ### Requirement 8
 
@@ -104,7 +108,7 @@ The Running Plan Generator is a web-based application that creates personalized 
 #### Acceptance Criteria
 
 1. WHEN a user selects a difficulty level THEN the system SHALL offer 5 levels from very easy to very hard
-2. WHEN difficulty is adjusted THEN the system SHALL modify training volume by 0.7x to 1.3x multipliers
-3. WHEN difficulty affects progression THEN the system SHALL adjust weekly increase rates from 5% to 15%
+2. WHEN difficulty is adjusted THEN the system SHALL modify training volume by 0.7x to 1.3x multipliers with distances calculated in kilometers
+3. WHEN difficulty affects progression THEN the system SHALL adjust weekly increase rates from 5% to 15% for kilometer-based volume progression
 4. WHEN difficulty impacts recovery THEN the system SHALL modify rest periods and workout frequency accordingly
-5. WHEN displaying difficulty options THEN the system SHALL provide clear descriptions and target user guidance
+5. WHEN displaying difficulty options THEN the system SHALL provide clear descriptions and target user guidance with all examples using metric units

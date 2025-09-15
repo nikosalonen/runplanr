@@ -4,6 +4,8 @@
 
 The Running Plan Generator is a client-side web application that generates personalized training plans using established running science principles. The system uses a rule-based algorithm to create periodized training plans that balance different workout types, incorporate proper recovery, and scale appropriately for different race distances and user preferences.
 
+**Measurement System**: The application is designed with the metric system as the primary and only supported unit system. All distances are calculated and displayed in kilometers and meters, paces in minutes per kilometer, and elevations in meters. Imperial unit support (miles, feet, minutes per mile) is planned for future implementation but is explicitly excluded from the current design scope to maintain simplicity and consistency.
+
 ## Key Considerations
 
 ### Science-Based Principles to Implement
@@ -176,9 +178,9 @@ interface TrainingPaces {
 }
 
 interface PaceRange {
-  minPace: number; // seconds per km/mile
-  maxPace: number;
-  targetPace: number;
+  minPace: number; // seconds per kilometer
+  maxPace: number; // seconds per kilometer
+  targetPace: number; // seconds per kilometer
 }
 ```
 
@@ -300,10 +302,10 @@ class AdaptivePaceSystem {
       paceAdjustment *= 1 + (degreesAbove60 / 5 * 0.02);
     }
     
-    // Altitude adjustment
-    if (conditions.altitude > 3000) {
-      const feetAbove3000 = conditions.altitude - 3000;
-      paceAdjustment *= 1 + (feetAbove3000 / 1000 * 0.02);
+    // Altitude adjustment (metric)
+    if (conditions.altitude > 900) { // 900 meters ≈ 3000 feet
+      const metersAbove900 = conditions.altitude - 900;
+      paceAdjustment *= 1 + (metersAbove900 / 300 * 0.02); // 300m ≈ 1000ft
     }
     
     // Training phase adjustment
@@ -349,11 +351,11 @@ class WorkoutPaceAssignment {
       },
       'intervals': {
         pace: this.paces.interval,
-        instruction: "Hard but controlled, 5K race pace"
+        instruction: "Hard but controlled, 5K race pace (min/km)"
       },
       'hills': {
         pace: this.paces.interval,
-        instruction: "Focus on effort rather than pace due to incline"
+        instruction: "Focus on effort rather than pace due to incline (min/km)"
       },
       'marathon': {
         pace: this.paces.marathon,
@@ -619,9 +621,10 @@ const hillRepeatProgression = {
 interface Workout {
   type: WorkoutType;
   duration: number; // minutes
+  distance?: number; // kilometers
   intensity: IntensityZone;
   description: string;
-  paceGuidance: string;
+  paceGuidance: string; // in min/km format
   recoveryTime: number; // hours before next hard workout
 }
 ```
@@ -732,7 +735,7 @@ interface PlanGenerator {
 ### Training Plan Structure
 
 ```typescript
-// Example plan structure
+// Example plan structure (metric units)
 {
   config: {
     programLength: 16,
@@ -746,13 +749,13 @@ interface PlanGenerator {
     {
       weekNumber: 1,
       phase: "base",
-      totalMileage: 20,
+      totalDistance: 32, // kilometers per week
       isDeload: false,
       workouts: [
         {
           day: "Tuesday",
           type: "easy",
-          distance: 4,
+          distance: 6, // kilometers
           description: "Easy run, Zone 2"
         },
         // ... more workouts
@@ -769,7 +772,7 @@ interface TrainingPlan {
   configuration: PlanConfiguration;
   weeks: WeeklyPlan[];
   metadata: {
-    totalMiles: number;
+    totalKilometers: number;
     totalWorkouts: number;
     createdAt: Date;
     raceDate?: Date;
@@ -781,7 +784,7 @@ interface WeeklyPlan {
   phase: 'base' | 'build' | 'peak' | 'taper';
   isDeloadWeek: boolean;
   days: DailyWorkout[];
-  weeklyVolume: number;
+  weeklyVolume: number; // kilometers
 }
 
 interface DailyWorkout {
