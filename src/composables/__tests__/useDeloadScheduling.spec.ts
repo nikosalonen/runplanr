@@ -36,7 +36,9 @@ describe("useDeloadScheduling", () => {
 			const result = deloadScheduling.scheduleDeloadWeeks(config);
 
 			expect(result.deloadWeeks).toHaveLength(4); // Weeks 3, 6, 9, 12 for 12-week program
-			expect(result.deloadWeeks.map((d) => d.weekNumber)).toEqual([3, 6, 9, 12]);
+			expect(result.deloadWeeks.map((d) => d.weekNumber)).toEqual([
+				3, 6, 9, 12,
+			]);
 		});
 
 		it("should identify phase conflicts during peak phase", () => {

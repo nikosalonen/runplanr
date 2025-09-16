@@ -101,13 +101,13 @@
     - _Requirements: 4.2, 4.3_
 
 - [ ] 5. Create plan generation engine
-  - [ ] 5.1 Implement main plan generation orchestrator
+  - [x] 5.1 Implement main plan generation orchestrator
     - Create PlanGenerator class that coordinates all generation steps
     - Implement step-by-step plan creation: validate config → determine phases → calculate distributions → generate sequences → optimize schedules
     - Add comprehensive plan validation before returning results
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3_
 
-  - [ ] 5.2 Add plan regeneration and modification capabilities
+  - [x] 5.2 Add plan regeneration and modification capabilities
     - Implement logic to regenerate plans when user changes parameters
     - Create incremental update system for minor configuration changes
     - Add plan comparison utilities for showing changes
